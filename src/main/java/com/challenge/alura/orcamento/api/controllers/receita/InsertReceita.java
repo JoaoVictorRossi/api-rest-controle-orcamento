@@ -1,4 +1,4 @@
-package com.challenge.alura.orcamento.api.controllers;
+package com.challenge.alura.orcamento.api.controllers.receita;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.challenge.alura.orcamento.api.model.Receita;
 import com.challenge.alura.orcamento.api.records.DadosReceita;
-import com.challenge.alura.orcamento.api.repositories.ReceitaRepository;
+import com.challenge.alura.orcamento.api.services.ReceitaService;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/receitas")
-public class ReceitaController {
+public class InsertReceita {
 	
 	@Autowired
-	private ReceitaRepository repository;
+	private ReceitaService service;
 	
 	@PostMapping
 	public ResponseEntity<Receita> cadastrar(@RequestBody @Valid DadosReceita dados) {
-		Receita receita = repository.save(new Receita(dados));
+		Receita receita = service.save(dados);
 		return ResponseEntity.ok().body(receita);
 	}
 	
