@@ -1,6 +1,8 @@
 package com.challenge.alura.orcamento.api.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.challenge.alura.orcamento.api.exceptions.DuplicatedPostRequestException;
@@ -18,6 +20,10 @@ public class ReceitaService {
 	public Receita save(DadosReceita dados) {
 		isReceitaDuplicated(dados);
 		return repository.save(new Receita(dados));
+	}
+	
+	public Page<Receita> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 	
 	private void isReceitaDuplicated(DadosReceita dados) {
