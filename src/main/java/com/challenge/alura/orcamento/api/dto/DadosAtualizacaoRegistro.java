@@ -5,12 +5,12 @@ import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotNull;
 
-public class DadosAtualizacaoReceita extends Dados{
+public class DadosAtualizacaoRegistro extends Dados{
 	
 	@NotNull
 	private Long id;
 
-	public DadosAtualizacaoReceita(
+	public DadosAtualizacaoRegistro(
 			
 			Long id,
 			

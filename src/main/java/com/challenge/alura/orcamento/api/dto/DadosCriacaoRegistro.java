@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class DadosCriacaoReceita extends Dados{
+public class DadosCriacaoRegistro extends Dados{
 	
 	@NotBlank(message = "Campo não informado.")
 	private String descricao;
@@ -17,7 +17,7 @@ public class DadosCriacaoReceita extends Dados{
 	@NotNull(message = "Campo não informado.")
 	private LocalDate tempo;
 	
-	public DadosCriacaoReceita(
+	public DadosCriacaoRegistro(
 			
 			String descricao,
 			

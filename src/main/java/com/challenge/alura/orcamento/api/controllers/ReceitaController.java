@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.challenge.alura.orcamento.api.dto.DadosAtualizacaoReceita;
-import com.challenge.alura.orcamento.api.dto.DadosCriacaoReceita;
+import com.challenge.alura.orcamento.api.dto.DadosAtualizacaoRegistro;
+import com.challenge.alura.orcamento.api.dto.DadosCriacaoRegistro;
 import com.challenge.alura.orcamento.api.model.Receita;
 import com.challenge.alura.orcamento.api.services.ReceitaService;
-import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 
 import jakarta.validation.Valid;
 
@@ -33,7 +32,7 @@ public class ReceitaController {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Receita> cadastrar(@RequestBody @Valid DadosCriacaoReceita dados) {
+	public ResponseEntity<Receita> cadastrar(@RequestBody @Valid DadosCriacaoRegistro dados) {
 		Receita receita = service.save(dados);
 		return ResponseEntity.ok().body(receita);
 	}
@@ -51,7 +50,7 @@ public class ReceitaController {
 	
 	@PutMapping
 	@Transactional
-	public void atualizarReceita(@RequestBody DadosAtualizacaoReceita dados) {
+	public void atualizarReceita(@RequestBody DadosAtualizacaoRegistro dados) {
 		service.update(dados);
 	}
 	
