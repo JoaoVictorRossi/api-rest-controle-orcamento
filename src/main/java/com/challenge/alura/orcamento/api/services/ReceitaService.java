@@ -39,10 +39,17 @@ public class ReceitaService {
 		isReceitaDuplicated(dados);
 		try {
 			Receita receita = repository.getReferenceById(dados.getId());
-			receita.atualizarInformacoes(dados);			
+			receita.atualizarInformacoes(dados);	
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(dados.getId());
 		}
+	}
+	
+	public Receita delete(Long id) {
+		Receita receita = findById(id);
+		repository.deleteById(id);
+		return receita;
+		
 	}
 	
 	private void isReceitaDuplicated(Dados dados) {
@@ -53,5 +60,6 @@ public class ReceitaService {
 			}			
 		}
 	}
+
 
 }
