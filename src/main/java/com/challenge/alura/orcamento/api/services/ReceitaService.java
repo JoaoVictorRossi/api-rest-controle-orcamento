@@ -35,13 +35,13 @@ public class ReceitaService {
 		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
-	public void update(DadosAtualizacaoRegistro dados) {
+	public void update(DadosAtualizacaoRegistro dados, long id) {
 		isReceitaDuplicated(dados);
 		try {
-			Receita receita = repository.getReferenceById(dados.getId());
+			Receita receita = repository.getReferenceById(id);
 			receita.atualizarInformacoes(dados);	
 		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(dados.getId());
+			throw new ResourceNotFoundException(id);
 		}
 	}
 	

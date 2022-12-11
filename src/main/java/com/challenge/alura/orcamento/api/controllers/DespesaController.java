@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.challenge.alura.orcamento.api.dto.DadosAtualizacaoRegistro;
 import com.challenge.alura.orcamento.api.dto.DadosCriacaoRegistro;
 import com.challenge.alura.orcamento.api.model.Despesa;
 import com.challenge.alura.orcamento.api.services.DespesaService;
@@ -42,6 +44,12 @@ public class DespesaController {
 	public ResponseEntity<Despesa> listarDespesa(@PathVariable Long id) {
 		Despesa despesa = service.findById(id);
 		return ResponseEntity.ok().body(despesa);
+	}
+	
+	@PutMapping(value = "/{id}")
+	@Transactional
+	public void atualizarDespesa(@RequestBody DadosAtualizacaoRegistro dados, @PathVariable Long id) {
+		service.update(dados, id);
 	}
 
 }

@@ -48,10 +48,10 @@ public class ReceitaController {
 		return ResponseEntity.ok().body(receita);
 	}
 	
-	@PutMapping
+	@PutMapping(value = "/{id}")
 	@Transactional
-	public void atualizarReceita(@RequestBody DadosAtualizacaoRegistro dados) {
-		service.update(dados);
+	public void atualizarReceita(@RequestBody DadosAtualizacaoRegistro dados, @PathVariable long id) {
+		service.update(dados, id);
 	}
 	
 	@DeleteMapping(value = "/{id}")
