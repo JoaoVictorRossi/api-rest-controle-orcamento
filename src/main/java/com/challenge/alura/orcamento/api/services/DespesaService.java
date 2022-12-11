@@ -45,6 +45,13 @@ public class DespesaService {
 		}
 	}
 	
+	public Despesa deleteById(Long id) {
+		Despesa despesa = findById(id);
+		repository.deleteById(id);
+		return despesa;
+		
+	}
+	
 	private void isDuplicatedDespesa(Dados dados) {
 		if(dados.getTempo() != null) {
 			Despesa despesa = repository.findByTempoMes(dados.getTempo().getMonthValue(), dados.getDescricao());
@@ -53,6 +60,7 @@ public class DespesaService {
 			}
 		}
 	}
+
 
 
 

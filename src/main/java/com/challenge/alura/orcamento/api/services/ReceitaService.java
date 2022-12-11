@@ -45,7 +45,7 @@ public class ReceitaService {
 		}
 	}
 	
-	public Receita delete(Long id) {
+	public Receita deleteById(Long id) {
 		Receita receita = findById(id);
 		repository.deleteById(id);
 		return receita;

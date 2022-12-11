@@ -56,7 +56,7 @@ public class ReceitaController {
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Receita> deletarReceita(@PathVariable Long id) {
-		Receita receita = service.delete(id);
+		Receita receita = service.deleteById(id);
 		return ResponseEntity.ok().body(receita);
 	}
 	 
