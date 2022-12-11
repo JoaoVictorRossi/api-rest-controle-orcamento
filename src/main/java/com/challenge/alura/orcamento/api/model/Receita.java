@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.Date;
 
-import com.challenge.alura.orcamento.api.records.DadosReceita;
+import com.challenge.alura.orcamento.api.dto.Dados;
+import com.challenge.alura.orcamento.api.dto.DadosAtualizacaoReceita;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,10 +36,27 @@ public class Receita implements Serializable{
 	private BigDecimal valor;
 	private Date tempo;
 	
-	public Receita(DadosReceita dados) {
-		this.descricao = dados.descricao();
-		this.valor = dados.valor();
-		this.tempo = Date.from(dados.tempo().atStartOfDay(ZoneId.systemDefault()).toInstant());
+	public Receita(Dados dados) {
+		this.descricao = dados.getDescricao();
+		this.valor = dados.getValor();
+		this.tempo = Date.from(dados.getTempo().atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+
+	public void atualizarInformacoes(DadosAtualizacaoReceita dados) {
+		if(dados.getDescricao() != null) {
+			this.descricao = dados.getDescricao();
+			
+		}
+		
+		if(dados.getValor() != null) {
+			this.valor = dados.getValor();
+		}
+		
+		if(dados.getTempo() != null) {
+			this.tempo = Date.from(dados.getTempo().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		}
+		
 	}
 
 }
+
