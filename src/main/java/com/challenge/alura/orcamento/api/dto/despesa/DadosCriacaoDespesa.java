@@ -1,12 +1,14 @@
-package com.challenge.alura.orcamento.api.dto;
+package com.challenge.alura.orcamento.api.dto.despesa;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.challenge.alura.orcamento.api.enums.Categoria;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class DadosCriacaoRegistro extends Dados{
+public class DadosCriacaoDespesa extends DadosDespesa{
 	
 	@NotBlank(message = "Campo não informado.")
 	private String descricao;
@@ -17,15 +19,17 @@ public class DadosCriacaoRegistro extends Dados{
 	@NotNull(message = "Campo não informado.")
 	private LocalDate tempo;
 	
-	public DadosCriacaoRegistro(
+	public DadosCriacaoDespesa(
 			
 			String descricao,
 			
 			BigDecimal valor,
 			
-			LocalDate tempo
+			LocalDate tempo,
+			
+			Categoria categoria
 			) {
-		super(descricao, valor, tempo);
+		super(descricao, valor, tempo, categoria);
 		this.descricao = descricao;
 		this.valor = valor;
 		this.tempo = tempo;

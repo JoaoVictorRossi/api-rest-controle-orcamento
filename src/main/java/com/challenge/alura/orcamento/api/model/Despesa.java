@@ -5,10 +5,13 @@ import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.Date;
 
-import com.challenge.alura.orcamento.api.dto.Dados;
-import com.challenge.alura.orcamento.api.dto.DadosAtualizacaoRegistro;
+import com.challenge.alura.orcamento.api.dto.despesa.DadosAtualizacaoDespesa;
+import com.challenge.alura.orcamento.api.dto.despesa.DadosDespesa;
+import com.challenge.alura.orcamento.api.enums.Categoria;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(of ="id")
 public class Despesa implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -35,13 +38,19 @@ public class Despesa implements Serializable{
 	private BigDecimal valor;
 	private Date tempo;
 	
-	public Despesa(Dados dados) {
+	@Enumerated(EnumType.STRING)
+	private Categoria categoria = Categoria.OUTRAS;
+	
+	public Despesa(DadosDespesa dados) {
 		this.descricao = dados.getDescricao();
 		this.valor = dados.getValor();
 		this.tempo = Date.from(dados.getTempo().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		if (dados.getCategoria() != null) {
+			this.categoria = dados.getCategoria();			
+		}
 	}
 
-	public void atualizarInformacoes(DadosAtualizacaoRegistro dados) {
+	public void atualizarInformacoes(DadosAtualizacaoDespesa dados) {
 		if(dados.getDescricao() != null) {
 			this.descricao = dados.getDescricao();
 		}
@@ -52,6 +61,10 @@ public class Despesa implements Serializable{
 		
 		if(dados.getTempo() != null) {
 			this.tempo = Date.from(dados.getTempo().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		}
+		
+		if(dados.getCategoria() != null) {
+			this.categoria = dados.getCategoria();
 		}
 		
 	}

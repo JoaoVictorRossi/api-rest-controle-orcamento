@@ -5,9 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.challenge.alura.orcamento.api.dto.Dados;
-import com.challenge.alura.orcamento.api.dto.DadosAtualizacaoRegistro;
-import com.challenge.alura.orcamento.api.dto.DadosCriacaoRegistro;
+import com.challenge.alura.orcamento.api.dto.receita.DadosAtualizacaoReceita;
+import com.challenge.alura.orcamento.api.dto.receita.DadosCriacaoReceita;
+import com.challenge.alura.orcamento.api.dto.receita.DadosReceita;
 import com.challenge.alura.orcamento.api.exceptions.DuplicatedPostRequestException;
 import com.challenge.alura.orcamento.api.exceptions.ResourceNotFoundException;
 import com.challenge.alura.orcamento.api.model.Receita;
@@ -22,7 +22,7 @@ public class ReceitaService {
 	private ReceitaRepository repository;
 	
 	
-	public Receita save(DadosCriacaoRegistro dados) {
+	public Receita save(DadosCriacaoReceita dados) {
 		isReceitaDuplicated(dados);
 		return repository.save(new Receita(dados));
 	}
@@ -35,7 +35,7 @@ public class ReceitaService {
 		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
-	public void update(DadosAtualizacaoRegistro dados, long id) {
+	public void update(DadosAtualizacaoReceita dados, long id) {
 		isReceitaDuplicated(dados);
 		try {
 			Receita receita = repository.getReferenceById(id);
@@ -52,7 +52,7 @@ public class ReceitaService {
 		
 	}
 	
-	private void isReceitaDuplicated(Dados dados) {
+	private void isReceitaDuplicated(DadosReceita dados) {
 		if (dados.getTempo() != null) {
 			Receita receita = repository.findByTempoMes(dados.getTempo().getMonthValue(), dados.getDescricao());
 			if (receita != null) {

@@ -1,11 +1,11 @@
-package com.challenge.alura.orcamento.api.dto;
+package com.challenge.alura.orcamento.api.dto.receita;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class DadosAtualizacaoRegistro extends Dados{
+public class DadosAtualizacaoReceita extends DadosReceita{
 
-	public DadosAtualizacaoRegistro(
+	public DadosAtualizacaoReceita(
 			
 			
 			String descricao,

@@ -5,9 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.challenge.alura.orcamento.api.dto.Dados;
-import com.challenge.alura.orcamento.api.dto.DadosAtualizacaoRegistro;
-import com.challenge.alura.orcamento.api.dto.DadosCriacaoRegistro;
+import com.challenge.alura.orcamento.api.dto.despesa.DadosAtualizacaoDespesa;
+import com.challenge.alura.orcamento.api.dto.despesa.DadosCriacaoDespesa;
+import com.challenge.alura.orcamento.api.dto.despesa.DadosDespesa;
 import com.challenge.alura.orcamento.api.exceptions.DuplicatedPostRequestException;
 import com.challenge.alura.orcamento.api.exceptions.ResourceNotFoundException;
 import com.challenge.alura.orcamento.api.model.Despesa;
@@ -21,7 +21,7 @@ public class DespesaService {
 	@Autowired
 	private DespesaRepository repository;
 	
-	public Despesa save(DadosCriacaoRegistro dados) {
+	public Despesa save(DadosCriacaoDespesa dados) {
 		isDuplicatedDespesa(dados);
 		Despesa despesa = repository.save(new Despesa(dados));
 		return despesa;
@@ -35,7 +35,7 @@ public class DespesaService {
 		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
-	public void update(DadosAtualizacaoRegistro dados, long id) {
+	public void update(DadosAtualizacaoDespesa dados, long id) {
 		isDuplicatedDespesa(dados);
 		try {
 			Despesa despesa = repository.getReferenceById(id);
@@ -52,7 +52,7 @@ public class DespesaService {
 		
 	}
 	
-	private void isDuplicatedDespesa(Dados dados) {
+	private void isDuplicatedDespesa(DadosDespesa dados) {
 		if(dados.getTempo() != null) {
 			Despesa despesa = repository.findByTempoMes(dados.getTempo().getMonthValue(), dados.getDescricao());
 			if(despesa != null) {

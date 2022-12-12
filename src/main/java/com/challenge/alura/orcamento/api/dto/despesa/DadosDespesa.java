@@ -1,9 +1,11 @@
-package com.challenge.alura.orcamento.api.dto;
+package com.challenge.alura.orcamento.api.dto.despesa;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.challenge.alura.orcamento.api.enums.Categoria;
 
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -13,9 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public abstract class Dados {
+public abstract class DadosDespesa {
 	
-	private Long id;
 	private String descricao;
 	
 	@Min(message = "O valor cadastrado não pode ser nagativo", value = 0)
@@ -24,9 +25,6 @@ public abstract class Dados {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate tempo;
 	
-	public Dados(String descricao, BigDecimal valor, LocalDate tempo) {
-		this.descricao = descricao;
-		this.valor = valor;
-		this.tempo = tempo;
-	}
+	private Categoria categoria;
+
 }
