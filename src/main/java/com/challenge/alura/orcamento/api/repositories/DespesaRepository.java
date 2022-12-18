@@ -10,6 +10,6 @@ import com.challenge.alura.orcamento.api.model.Despesa;
 @Repository
 public interface DespesaRepository extends JpaRepository<Despesa, Long>{
 
-	@Query("from Despesa d where month(d.tempo) = :mes and d.descricao = :descricaoDados")
-	Despesa findByTempoMes(@Param("mes") int mes, @Param("descricaoDados") String descricaoDados);
+	@Query("from Despesa d where month(d.tempo) = :mes and year(d.tempo) = :ano and d.descricao = :descricaoDados")
+	Despesa findByTempoMes(@Param("mes") int mes, @Param("ano") int ano, @Param("descricaoDados") String descricaoDados);
 }

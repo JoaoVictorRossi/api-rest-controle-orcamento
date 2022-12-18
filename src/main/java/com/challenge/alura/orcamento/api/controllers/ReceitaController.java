@@ -1,5 +1,7 @@
 package com.challenge.alura.orcamento.api.controllers;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.challenge.alura.orcamento.api.dto.receita.DadosAtualizacaoReceita;
 import com.challenge.alura.orcamento.api.dto.receita.DadosCriacaoReceita;
@@ -32,32 +35,35 @@ public class ReceitaController {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Receita> cadastrar(@RequestBody @Valid DadosCriacaoReceita dados) {
+	public ResponseEntity<Receita> cadastrar(@RequestBody @Valid DadosCriacaoReceita dados, UriComponentsBuilder uriBuilder) {
 		Receita receita = service.save(dados);
-		return ResponseEntity.ok().body(receita);
+		URI uri = uriBuilder.path("/receitas/{id}").buildAndExpand(receita.getId()).toUri();
+		return ResponseEntity.created(uri).body(receita);
 	}
 	
 	@GetMapping
-	public Page<Receita> listar(@PageableDefault(sort = {"tempo"}) Pageable pageable) {
-		return service.findAll(pageable);
+	public ResponseEntity<Page<Receita>> listar(@PageableDefault(sort = {"tempo"}) Pageable pageable) {
+		Page<Receita> page = service.findAll(pageable);
+		return ResponseEntity.ok(page);
 	}
 	
 	@GetMapping(value =  "/{id}")
 	public ResponseEntity<Receita> buscarReceita(@PathVariable Long id) {
 		Receita receita = service.findById(id);
-		return ResponseEntity.ok().body(receita);
+		return ResponseEntity.ok(receita);
 	}
 	
 	@PutMapping(value = "/{id}")
 	@Transactional
-	public void atualizarReceita(@RequestBody DadosAtualizacaoReceita dados, @PathVariable long id) {
+	public ResponseEntity atualizarReceita(@RequestBody DadosAtualizacaoReceita dados, @PathVariable long id) {
 		service.update(dados, id);
+		return ResponseEntity.noContent().build();
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Receita> deletarReceita(@PathVariable Long id) {
-		Receita receita = service.deleteById(id);
-		return ResponseEntity.ok().body(receita);
+	public ResponseEntity deletarReceita(@PathVariable Long id) {
+		service.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
 	 
 }

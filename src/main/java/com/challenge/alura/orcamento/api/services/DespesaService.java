@@ -45,16 +45,16 @@ public class DespesaService {
 		}
 	}
 	
-	public Despesa deleteById(Long id) {
-		Despesa despesa = findById(id);
+	public void deleteById(Long id) {
 		repository.deleteById(id);
-		return despesa;
-		
 	}
 	
 	private void isDuplicatedDespesa(DadosDespesa dados) {
 		if(dados.getTempo() != null) {
-			Despesa despesa = repository.findByTempoMes(dados.getTempo().getMonthValue(), dados.getDescricao());
+			Despesa despesa = repository.findByTempoMes(
+					dados.getTempo().getMonthValue(), 
+					dados.getTempo().getYear(),
+					dados.getDescricao());
 			if(despesa != null) {
 				throw new DuplicatedPostRequestException("Cadastro de despesa duplicado.");
 			}

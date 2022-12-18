@@ -39,22 +39,22 @@ public class ReceitaService {
 		isReceitaDuplicated(dados);
 		try {
 			Receita receita = repository.getReferenceById(id);
-			receita.atualizarInformacoes(dados);	
+			receita.atualizarInformacoes(dados);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 	
-	public Receita deleteById(Long id) {
-		Receita receita = findById(id);
+	public void deleteById(Long id) {
 		repository.deleteById(id);
-		return receita;
-		
 	}
 	
 	private void isReceitaDuplicated(DadosReceita dados) {
 		if (dados.getTempo() != null) {
-			Receita receita = repository.findByTempoMes(dados.getTempo().getMonthValue(), dados.getDescricao());
+			Receita receita = repository.findByTempoMes(
+					dados.getTempo().getMonthValue(),
+					dados.getTempo().getYear(), 
+					dados.getDescricao()); 
 			if (receita != null) {
 				throw new DuplicatedPostRequestException("Cadastro de receita duplicado.");
 			}			

@@ -10,7 +10,7 @@ import com.challenge.alura.orcamento.api.model.Receita;
 @Repository
 public interface ReceitaRepository extends JpaRepository<Receita, Long> {
 	
-	@Query("from Receita r where month(r.tempo) = :mes and r.descricao = :descricaoDados")
-	Receita findByTempoMes(@Param("mes") int mes, @Param("descricaoDados") String descricaoDados);
+	@Query("from Receita r where month(r.tempo) = :mes and year(r.tempo) = :ano and r.descricao = :descricaoDados")
+	Receita findByTempoMes(@Param("mes") int mes, @Param("ano") int ano, @Param("descricaoDados") String descricaoDados);
 	
 }
