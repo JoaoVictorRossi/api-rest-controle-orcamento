@@ -1,7 +1,10 @@
 package com.challenge.alura.orcamento.api.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,7 @@ import com.challenge.alura.orcamento.api.dto.despesa.DadosDespesa;
 import com.challenge.alura.orcamento.api.exceptions.DuplicatedPostRequestException;
 import com.challenge.alura.orcamento.api.exceptions.ResourceNotFoundException;
 import com.challenge.alura.orcamento.api.model.Despesa;
+import com.challenge.alura.orcamento.api.model.Receita;
 import com.challenge.alura.orcamento.api.repositories.DespesaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -33,6 +37,12 @@ public class DespesaService {
 	
 	public Despesa findById(Long id) {
 		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+	}
+	
+	public Page<Despesa> findByDescricao(String descricao) {
+		List<Despesa> receitasByDescricao = repository.findByDescricao(descricao);
+		Page<Despesa> page = new PageImpl<>(receitasByDescricao);
+		return page;
 	}
 	
 	public void update(DadosAtualizacaoDespesa dados, long id) {

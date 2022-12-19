@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -42,9 +43,15 @@ public class ReceitaController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<Page<Receita>> listar(@PageableDefault(sort = {"tempo"}) Pageable pageable) {
-		Page<Receita> page = service.findAll(pageable);
-		return ResponseEntity.ok(page);
+	public ResponseEntity<Page<Receita>> listar(@PageableDefault(sort = {"tempo"}) Pageable pageable, 
+			@RequestParam(required = false) String descricao) {
+		Page<Receita> page;
+		if(descricao == null) {
+			page = service.findAll(pageable);			
+		} else {
+			page = service.findByDescricao(descricao);
+		}
+		return ResponseEntity.ok(page);			
 	}
 	
 	@GetMapping(value =  "/{id}")
@@ -55,13 +62,13 @@ public class ReceitaController {
 	
 	@PutMapping(value = "/{id}")
 	@Transactional
-	public ResponseEntity atualizarReceita(@RequestBody DadosAtualizacaoReceita dados, @PathVariable long id) {
+	public ResponseEntity<?> atualizarReceita(@RequestBody DadosAtualizacaoReceita dados, @PathVariable Long id) {
 		service.update(dados, id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity deletarReceita(@PathVariable Long id) {
+	public ResponseEntity<?> deletarReceita(@PathVariable Long id) {
 		service.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}

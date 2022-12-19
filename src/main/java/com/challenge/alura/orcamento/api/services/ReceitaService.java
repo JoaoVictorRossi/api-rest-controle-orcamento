@@ -1,7 +1,10 @@
 package com.challenge.alura.orcamento.api.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +38,13 @@ public class ReceitaService {
 		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
-	public void update(DadosAtualizacaoReceita dados, long id) {
+	public Page<Receita> findByDescricao(String descricao) {
+		List<Receita> receitasByDescricao = repository.findByDescricao(descricao);
+		Page<Receita> page = new PageImpl<>(receitasByDescricao);
+		return page;
+	}
+	
+	public void update(DadosAtualizacaoReceita dados, Long id) {
 		isReceitaDuplicated(dados);
 		try {
 			Receita receita = repository.getReferenceById(id);
@@ -48,6 +57,8 @@ public class ReceitaService {
 	public void deleteById(Long id) {
 		repository.deleteById(id);
 	}
+	
+	
 	
 	private void isReceitaDuplicated(DadosReceita dados) {
 		if (dados.getTempo() != null) {
