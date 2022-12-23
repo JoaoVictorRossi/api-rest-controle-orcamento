@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 import com.challenge.alura.orcamento.api.dto.despesa.DadosAtualizacaoDespesa;
 import com.challenge.alura.orcamento.api.dto.despesa.DadosCriacaoDespesa;
 import com.challenge.alura.orcamento.api.dto.despesa.DadosDespesa;
+import com.challenge.alura.orcamento.api.dto.resumo.BalanceCategorie;
 import com.challenge.alura.orcamento.api.exceptions.DuplicatedPostRequestException;
 import com.challenge.alura.orcamento.api.exceptions.ResourceNotFoundException;
 import com.challenge.alura.orcamento.api.model.Despesa;
-import com.challenge.alura.orcamento.api.model.Receita;
 import com.challenge.alura.orcamento.api.repositories.DespesaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -45,6 +45,10 @@ public class DespesaService {
 		return page;
 	}
 	
+	public Page<Despesa> findAllByTempo(Integer ano, Integer mes) {
+		return new PageImpl<>(repository.findAllByTempo(mes, ano));
+	}
+	
 	public void update(DadosAtualizacaoDespesa dados, long id) {
 		isDuplicatedDespesa(dados);
 		try {
@@ -59,6 +63,10 @@ public class DespesaService {
 		repository.deleteById(id);
 	}
 	
+	public List<BalanceCategorie> getValuePerCategorie(Integer ano, Integer mes) {
+		return repository.findBalanceTotalPerCategorie(ano, mes);
+	}
+	
 	private void isDuplicatedDespesa(DadosDespesa dados) {
 		if(dados.getTempo() != null) {
 			Despesa despesa = repository.findByTempoMes(
@@ -70,6 +78,7 @@ public class DespesaService {
 			}
 		}
 	}
+
 
 
 

@@ -59,6 +59,12 @@ public class DespesaController {
 		return ResponseEntity.ok(despesa);
 	}
 	
+	@GetMapping(value = "/{ano}/{mes}")
+	public ResponseEntity<Page<Despesa>> listarPorData(@PathVariable Integer ano, @PathVariable Integer mes) {
+		Page<Despesa> page = service.findAllByTempo(ano, mes);
+		return ResponseEntity.ok(page);
+	}
+	
 	@PutMapping(value = "/{id}")
 	@Transactional
 	public ResponseEntity<?> atualizarDespesa(@RequestBody DadosAtualizacaoDespesa dados, @PathVariable Long id) {

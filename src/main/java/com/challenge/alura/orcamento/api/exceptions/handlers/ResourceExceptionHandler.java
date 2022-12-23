@@ -1,4 +1,4 @@
-package com.challenge.alura.orcamento.api.exceptions;
+package com.challenge.alura.orcamento.api.exceptions.handlers;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.challenge.alura.orcamento.api.exceptions.DuplicatedPostRequestException;
+import com.challenge.alura.orcamento.api.exceptions.ResourceNotFoundException;
 import com.challenge.alura.orcamento.api.exceptions.resources.Erro;
 
 @ControllerAdvice()

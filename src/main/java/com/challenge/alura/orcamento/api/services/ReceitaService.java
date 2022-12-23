@@ -1,7 +1,5 @@
 package com.challenge.alura.orcamento.api.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -39,9 +37,11 @@ public class ReceitaService {
 	}
 	
 	public Page<Receita> findByDescricao(String descricao) {
-		List<Receita> receitasByDescricao = repository.findByDescricao(descricao);
-		Page<Receita> page = new PageImpl<>(receitasByDescricao);
-		return page;
+		return new PageImpl<>(repository.findByDescricao(descricao));
+	}
+	
+	public Page<Receita> findAllByTempo(int ano, int mes) {
+		return new PageImpl<>(repository.findAllByTempo(ano, mes));
 	}
 	
 	public void update(DadosAtualizacaoReceita dados, Long id) {
@@ -58,8 +58,6 @@ public class ReceitaService {
 		repository.deleteById(id);
 	}
 	
-	
-	
 	private void isReceitaDuplicated(DadosReceita dados) {
 		if (dados.getTempo() != null) {
 			Receita receita = repository.findByTempoMes(
@@ -71,6 +69,7 @@ public class ReceitaService {
 			}			
 		}
 	}
+
 
 
 }

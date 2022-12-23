@@ -60,6 +60,12 @@ public class ReceitaController {
 		return ResponseEntity.ok(receita);
 	}
 	
+	@GetMapping(value = "/{ano}/{mes}")
+	public ResponseEntity<Page<Receita>> listarPorData(@PathVariable Integer ano, @PathVariable Integer mes) {
+		Page<Receita> page = service.findAllByTempo(ano, mes);
+		return ResponseEntity.ok(page);
+	}
+	
 	@PutMapping(value = "/{id}")
 	@Transactional
 	public ResponseEntity<?> atualizarReceita(@RequestBody DadosAtualizacaoReceita dados, @PathVariable Long id) {
