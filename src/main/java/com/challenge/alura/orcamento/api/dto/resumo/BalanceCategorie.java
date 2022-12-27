@@ -2,12 +2,15 @@ package com.challenge.alura.orcamento.api.dto.resumo;
 
 import java.math.BigDecimal;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.challenge.alura.orcamento.api.enums.Categoria;
 
-public interface BalanceCategorie {
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-	@Value("#{target.categoria.descricao}")
-	String getCategoria();
-	BigDecimal getTotal();
-	
+@Data
+@AllArgsConstructor
+public class BalanceCategorie {
+
+	private Categoria categoria;
+	private BigDecimal valor;
 }

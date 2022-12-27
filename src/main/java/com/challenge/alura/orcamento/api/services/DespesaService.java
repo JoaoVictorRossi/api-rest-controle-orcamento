@@ -25,6 +25,11 @@ public class DespesaService {
 	@Autowired
 	private DespesaRepository repository;
 	
+	@Autowired
+	public DespesaService(DespesaRepository repository) {
+		this.repository = repository;
+	}
+	
 	public Despesa save(DadosCriacaoDespesa dados) {
 		isDuplicatedDespesa(dados);
 		Despesa despesa = repository.save(new Despesa(dados));
@@ -40,8 +45,8 @@ public class DespesaService {
 	}
 	
 	public Page<Despesa> findByDescricao(String descricao) {
-		List<Despesa> receitasByDescricao = repository.findByDescricao(descricao);
-		Page<Despesa> page = new PageImpl<>(receitasByDescricao);
+		List<Despesa> despesasByDescricao = repository.findByDescricao(descricao);
+		Page<Despesa> page = new PageImpl<>(despesasByDescricao);
 		return page;
 	}
 	

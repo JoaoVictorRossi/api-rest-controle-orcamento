@@ -7,6 +7,7 @@ import com.challenge.alura.orcamento.api.enums.Categoria;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.NoArgsConstructor;
 
 public class DadosCriacaoDespesa extends DadosDespesa{
 	

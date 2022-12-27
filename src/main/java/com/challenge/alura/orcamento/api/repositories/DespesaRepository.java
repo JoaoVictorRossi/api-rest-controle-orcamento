@@ -21,7 +21,7 @@ public interface DespesaRepository extends JpaRepository<Despesa, Long>{
 	@Query("from Despesa d where month(d.tempo) = :mes and year(d.tempo) = :ano")
 	List<Despesa> findAllByTempo(@Param("mes") int mes, @Param("ano") int ano);
 	
-	@Query("select d.categoria as categoria, SUM(d.valor) as total from Despesa d "
+	@Query("select new com.challenge.alura.orcamento.api.dto.resumo.BalanceCategorie (d.categoria, sum(d.valor)) from Despesa d "
 			+ "where year(d.tempo) = :ano and month(d.tempo) = :mes group by d.categoria")
 	List<BalanceCategorie> findBalanceTotalPerCategorie(@Param("ano") int ano, @Param("mes") int mes);
 }

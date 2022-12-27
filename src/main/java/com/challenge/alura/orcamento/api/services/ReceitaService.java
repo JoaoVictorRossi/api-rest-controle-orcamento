@@ -22,6 +22,11 @@ public class ReceitaService {
 	@Autowired
 	private ReceitaRepository repository;
 	
+	@Autowired
+	public ReceitaService(ReceitaRepository repository) {
+		this.repository = repository;
+	}
+	
 	
 	public Receita save(DadosCriacaoReceita dados) {
 		isReceitaDuplicated(dados);
