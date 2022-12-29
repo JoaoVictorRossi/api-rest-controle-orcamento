@@ -2,8 +2,7 @@ package com.challenge.alura.orcamento.api.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.challenge.alura.orcamento.api.dto.despesa.DadosAtualizacaoDespesa;
 import com.challenge.alura.orcamento.api.dto.despesa.DadosDespesa;
@@ -36,7 +35,7 @@ public class Despesa implements Serializable{
 	
 	private String descricao;
 	private BigDecimal valor;
-	private Date tempo;
+	private LocalDate tempo;
 	
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria = Categoria.OUTRAS;
@@ -44,7 +43,7 @@ public class Despesa implements Serializable{
 	public Despesa(DadosDespesa dados) {
 		this.descricao = dados.getDescricao();
 		this.valor = dados.getValor();
-		this.tempo = Date.from(dados.getTempo().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		this.tempo = dados.getTempo();
 		if (dados.getCategoria() != null) {
 			this.categoria = dados.getCategoria();			
 		}
@@ -60,7 +59,7 @@ public class Despesa implements Serializable{
 		}
 		
 		if(dados.getTempo() != null) {
-			this.tempo = Date.from(dados.getTempo().atStartOfDay(ZoneId.systemDefault()).toInstant());
+			this.tempo = dados.getTempo();
 		}
 		
 		if(dados.getCategoria() != null) {

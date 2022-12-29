@@ -68,8 +68,8 @@ public class DespesaController {
 	@PutMapping(value = "/{id}")
 	@Transactional
 	public ResponseEntity<?> atualizarDespesa(@RequestBody DadosAtualizacaoDespesa dados, @PathVariable Long id) {
-		service.update(dados, id);
-		return ResponseEntity.noContent().build();
+		Despesa despesa = service.update(dados, id);
+		return ResponseEntity.ok(despesa);
 	}
 	
 	@DeleteMapping(value = "/{id}")

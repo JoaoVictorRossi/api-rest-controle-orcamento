@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import com.challenge.alura.orcamento.api.dto.despesa.DadosCriacaoDespesa;
 import com.challenge.alura.orcamento.api.dto.receita.DadosCriacaoReceita;
 import com.challenge.alura.orcamento.api.dto.resumo.BalanceCategorie;
+import com.challenge.alura.orcamento.api.dto.resumo.DadosResumo;
 import com.challenge.alura.orcamento.api.enums.Categoria;
 import com.challenge.alura.orcamento.api.model.Despesa;
 import com.challenge.alura.orcamento.api.model.Receita;
@@ -71,6 +72,23 @@ class ResumoServiceTest {
 		
 		BigDecimal value = resumoService.calculateBalanceReceita(receitas);
 		assertEquals(new BigDecimal("6000.00"), value);
+		
+	}
+	
+	@Test
+	public void returnSummaryOfTheMonth() {
+		
+		List<BalanceCategorie> totalByCategoria = List.of(
+	            new BalanceCategorie(Categoria.ALIMENTACAO, BigDecimal.valueOf(1250.0)),
+	            new BalanceCategorie(Categoria.SAUDE, BigDecimal.valueOf(350.0)),
+	            new BalanceCategorie(Categoria.TRANSPORTE, BigDecimal.valueOf(2000.0)),
+	            new BalanceCategorie(Categoria.OUTRAS, BigDecimal.valueOf(8900.0))
+	        );
+		
+		DadosResumo summay = resumoService.getResumo(new BigDecimal("630.00"), new BigDecimal("1090.00"), totalByCategoria);
+		
+		assertEquals(new BigDecimal("-460.00"), summay.getBalance());
+		assertEquals(4, summay.getBalanceCategories().size());
 		
 	}
 }

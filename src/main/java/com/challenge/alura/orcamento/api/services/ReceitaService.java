@@ -49,17 +49,19 @@ public class ReceitaService {
 		return new PageImpl<>(repository.findAllByTempo(ano, mes));
 	}
 	
-	public void update(DadosAtualizacaoReceita dados, Long id) {
+	public Receita update(DadosAtualizacaoReceita dados, Long id) {
 		isReceitaDuplicated(dados);
 		try {
 			Receita receita = repository.getReferenceById(id);
 			receita.atualizarInformacoes(dados);
+			return repository.saveAndFlush(receita);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 	
 	public void deleteById(Long id) {
+		findById(id);
 		repository.deleteById(id);
 	}
 	

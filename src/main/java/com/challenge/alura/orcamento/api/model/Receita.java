@@ -2,8 +2,7 @@ package com.challenge.alura.orcamento.api.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.challenge.alura.orcamento.api.dto.receita.DadosAtualizacaoReceita;
 import com.challenge.alura.orcamento.api.dto.receita.DadosReceita;
@@ -33,12 +32,12 @@ public class Receita implements Serializable{
 	
 	private String descricao;
 	private BigDecimal valor;
-	private Date tempo;
+	private LocalDate tempo;
 	
 	public Receita(DadosReceita dados) {
 		this.descricao = dados.getDescricao();
 		this.valor = dados.getValor();
-		this.tempo = Date.from(dados.getTempo().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		this.tempo = dados.getTempo();
 	}
 
 	public void atualizarInformacoes(DadosAtualizacaoReceita dados) {
@@ -52,17 +51,9 @@ public class Receita implements Serializable{
 		}
 		
 		if(dados.getTempo() != null) {
-			this.tempo = Date.from(dados.getTempo().atStartOfDay(ZoneId.systemDefault()).toInstant());
+			this.tempo = dados.getTempo();
 		}
 		
 	}
-
-	@Override
-	public String toString() {
-		return "Receita [id=" + id + ", descricao=" + descricao + ", valor=" + valor + ", tempo=" + tempo + "]";
-	}
-	
-	
-
 }
 

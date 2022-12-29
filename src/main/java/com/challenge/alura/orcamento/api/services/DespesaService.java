@@ -54,17 +54,19 @@ public class DespesaService {
 		return new PageImpl<>(repository.findAllByTempo(mes, ano));
 	}
 	
-	public void update(DadosAtualizacaoDespesa dados, long id) {
+	public Despesa update(DadosAtualizacaoDespesa dados, long id) {
 		isDuplicatedDespesa(dados);
 		try {
 			Despesa despesa = repository.getReferenceById(id);
 			despesa.atualizarInformacoes(dados);
+			return repository.saveAndFlush(despesa);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 	
 	public void deleteById(Long id) {
+		findById(id);
 		repository.deleteById(id);
 	}
 	

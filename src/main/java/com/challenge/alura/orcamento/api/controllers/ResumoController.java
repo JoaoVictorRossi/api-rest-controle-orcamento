@@ -27,7 +27,7 @@ public class ResumoController {
 	
 	@GetMapping(value = "/{ano}/{mes}")
 	public ResponseEntity<DadosResumo> listarResumoMes(@PathVariable Integer ano, @PathVariable Integer mes){
-		DadosResumo resumo = new DadosResumo(
+		DadosResumo resumo = resumoService.getResumo(
 				resumoService.calculateBalanceReceita(receitaService.findAllByTempo(ano, mes).toList()), 
 				resumoService.calculateBalanceDespesa(despesaService.findAllByTempo(ano, mes).toList()),
 				resumoService.getValuePerCategorie(mes, ano));

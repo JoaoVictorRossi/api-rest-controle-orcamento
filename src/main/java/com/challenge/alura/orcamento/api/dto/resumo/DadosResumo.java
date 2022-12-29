@@ -19,16 +19,5 @@ public class DadosResumo implements Serializable{
 	private BigDecimal balance;
 	
 	private List<BalanceCategorie> balanceCategories;
-	
-	public DadosResumo(BigDecimal balanceReceita, BigDecimal balanceDespesa, List<BalanceCategorie> balanceCategories) {
-		
-		this.totalReceitas = balanceReceita;
-		this.totalDespesas = balanceDespesa;
-		
-		this.balance = this.totalReceitas.subtract(this.totalDespesas);
-		
-		this.balanceCategories = balanceCategories;
-		
-	}
 
 }
