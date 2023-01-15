@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.challenge.alura.orcamento.api.dto.token.TokenDTO;
 import com.challenge.alura.orcamento.api.dto.usuario.DadosAuthentication;
 import com.challenge.alura.orcamento.api.model.Usuario;
 import com.challenge.alura.orcamento.api.services.TokenService;
@@ -29,8 +30,8 @@ public class UsuarioController {
 	public ResponseEntity<?> login(@RequestBody @Valid DadosAuthentication dados) {
 		var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.pass());
 		var authentication = manager.authenticate(authenticationToken);
-		
-		return ResponseEntity.ok(service.generateToken((Usuario) authentication.getPrincipal()));
+		TokenDTO token = new TokenDTO(service.generateToken((Usuario) authentication.getPrincipal()));
+		return ResponseEntity.ok(token);
 	}
 
 }
