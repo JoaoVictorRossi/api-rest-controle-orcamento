@@ -1,4 +1,4 @@
-package com.challenge.alura.orcamento.api.controllers;
+package com.challenge.alura.orcamento.api.controllers.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ import com.challenge.alura.orcamento.api.services.TokenService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/login")
-public class UsuarioController {
+@RequestMapping("/auth/login")
+public class AuthenticationController {
 	
 	@Autowired
 	private AuthenticationManager manager;

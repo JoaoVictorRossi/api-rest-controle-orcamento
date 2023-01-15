@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfigurations {
+public class SecurityConfigurations{
 	
 	@Autowired
 	private SecurityFilter securityFilter;
@@ -26,7 +26,7 @@ public class SecurityConfigurations {
 		return httpSecurity.csrf().disable()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and().authorizeHttpRequests()
-				.requestMatchers(HttpMethod.POST, "/login").permitAll()
+				.requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
 				.anyRequest().authenticated()
 				.and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();

@@ -7,6 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.challenge.alura.orcamento.api.dto.usuario.DadosAuthorization;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,13 +24,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Usuario implements UserDetails{
-	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String login;
 	private String pass;
+	
+	public Usuario(DadosAuthorization dados) {
+		this.login = dados.login();
+		this.pass = dados.pass();
+	}
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

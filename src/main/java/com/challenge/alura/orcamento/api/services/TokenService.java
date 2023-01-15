@@ -46,7 +46,7 @@ public class TokenService {
 	}
 
 	private Instant dateLimite() {
-		return LocalDateTime.now().plusMonths(1L).toInstant(ZoneOffset.of("-03:00"));
+		return LocalDateTime.now().plusHours(1L).toInstant(ZoneOffset.of("-03:00"));
 	}
 
 }
