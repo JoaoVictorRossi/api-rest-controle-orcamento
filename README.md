@@ -29,8 +29,8 @@ O projeto consiste em uma API Rest feita na linguagem Java, seguindo Clean Archi
     - Flyway.
     - Maven.
 
-### 📃  Documentação
-#### Autenticação
+## 📃  Documentação
+### Autenticação
 
 Request de Autorização para registro no Banco de Dados
 
@@ -58,7 +58,8 @@ Request de Autenticação para adquirir o Token JWT
 }
 ~~~
 <br>
-#### Receita
+
+### Receita
 
     POST /receitas - Cadastro de Receita
 
@@ -103,7 +104,7 @@ Parametro*Request Body*
 
 <br>
 
-#### Despesa
+### Despesa
 
 
     POST /despesas - Cadastro de Receita
@@ -152,7 +153,7 @@ Parametro*Request Body*
 
 <br>
 
-#### Resumo
+### Resumo
 
     GET /resumo - Adquirir Resumo do mês
 
