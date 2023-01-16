@@ -18,7 +18,7 @@ O projeto consiste em uma API Rest feita na linguagem Java, seguindo Clean Archi
     - Spring Data JPA.
     - Spring Security.
 - Mockito.
-- Maven.
+- Flyway.
 - MySQL.
 - Hibernate
 - Bibliotecas:
@@ -27,7 +27,7 @@ O projeto consiste em uma API Rest feita na linguagem Java, seguindo Clean Archi
     - Lombok.
     - JPA.
 - Ferramentas:
-    - Flyway.
+    - Maven.
 
 ## 📃  Documentação
 ### Autenticação
