@@ -91,8 +91,8 @@ Parametro*Request Body*
 ~~~ JSON
 {
     "descricao": "Test2", // Descrição da Receita (Não Obrigatório)
-    "valor": "2550.50", // Valor da receita (Não Obrigatório)
-    "tempo": "2023-02-01" // Data da receita (Não Obrigatório)
+    "valor": "2550.50", // Valor da Receita (Não Obrigatório)
+    "tempo": "2023-02-01" // Data da Receita (Não Obrigatório)
 }
 ~~~
 
@@ -138,9 +138,9 @@ Parametro*Request Body*
 
 ~~~ JSON
 {
-    "descricao": "Test2", // Descrição da receitan (Não Obrigatório)
-    "valor": "2550.50", // Valor da receita (Não Obrigatório)
-    "tempo": "2023-02-01", // Data da receita (Não Obrigatório)
+    "descricao": "Test2", // Descrição da Despesa (Não Obrigatório)
+    "valor": "2550.50", // Valor da Despesa (Não Obrigatório)
+    "tempo": "2023-02-01", // Data da Despesa (Não Obrigatório)
     "categoria": "LAZER"// Categoria da Despesa (Não Obrigatório)
 }
 ~~~
